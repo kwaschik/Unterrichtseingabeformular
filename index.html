@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unterrichtseingabeformular</title>
+    <link href="css/bulma.min.css" rel="stylesheet">
+    <link href="css/bulma-calendar.min.css" rel="stylesheet">
+
+    <style>
+        select,
+        .select {
+            width: 100%;
+            /* Andernfalls Absturz v. Safari */
+            text-rendering: auto !important;
+        }
+
+        .datetimepicker-dummy-wrapper {
+            border-radius: 4px;
+        }
+    </style>
+
+    <script src="js/airtable.browser.js" type="text/javascript"></script>
+    <script src="js/bulma-calendar.min.js" type="text/javascript"></script>
+    
+</head>
+
+<body>
+    <div id="login" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <div class="field">
+                    <label class="label">Login</label>
+                    <div class="control">
+                        <input id="apiKey" class="input" type="text" placeholder="Zum Anmelden bitte Airtable Key eingeben ...">
+                    </div>
+                </div>
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        <button class="button is-primary" onclick="login()">Ok</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="anime" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <progress class="progress is-medium is-primary"></progress>
+        </div>
+    </div>
+    <section class="section">
+        <div class="container">
+            <section class="hero">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            Unterrichtseingabeformular
+                        </h1>
+                    </div>
+                </div>
+            </section>
+            <div>
+                <div class="field">
+                    <label class="label">Jahrgang</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Jahrgang">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Fach</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Fach" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Fachbereich</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Fachbereich" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Anzahl Stunden</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Stunden">
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Thema</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Thema" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Themenbereich</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Themenbereich" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Dysfunktionen</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Dysfunktionen" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Pathologie</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Pathologie" onchange="change(event)">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Datum</label>
+                    <div class="control">
+                        <input id="Datum" class="input" type="date">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Dozent</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="Dozent">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Assistent</label>
+                    <div class="control">
+                        <input id="Assistent" class="input" type="text">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Bemerkungen</label>
+                    <div class="control">
+                        <textarea id="Bemerkungen" class="textarea" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" onclick="save()">Speichern</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-text" onclick="reset()">Zurücksetzen</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <script src="js/formular.js" type="text/javascript"></script>
+</body>
+
+</html>
