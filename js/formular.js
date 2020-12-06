@@ -188,6 +188,16 @@ function save() {
         if (document.getElementById("Stunden") != "")
             record["Stunden"] = parseInt(document.getElementById("Stunden").value);
     } catch {}
+  
+    // Pflichtfelder prüfen
+    if (!record["Dozent"]   || record["Dozent"].length === 0 ||
+        !record["Jahrgang"] || record["Jahrgang"].length === 0 ||
+        !record["Datum"]    || record["Datum"] === "" ||
+        !record["Fach"]     || record["Fach"].length === 0) {
+        console.error('"Dozent", "Jahrgang", "Datum" und "Fach" sind Pflichtangaben. Mindestens eines der genannten Felder ist nicht gefüllt.');
+        alert('"Dozent", "Jahrgang", "Datum" und "Fach" sind Pflichtangaben. Mindestens eines der genannten Felder ist nicht gefüllt.');
+        return;
+    }
                      
     // Speichern und Formular zurücksetzen
     try {
